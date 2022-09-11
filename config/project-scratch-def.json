@@ -1,13 +1,13 @@
 {
-  "orgName": "nathan.batterham company",
+  "orgName": "Trigger Framework",
   "edition": "Developer",
-  "features": ["EnableSetPasswordInApi"],
+  "features": [],
   "settings": {
     "lightningExperienceSettings": {
-      "enableS1DesktopEnabled": true
+        "enableS1DesktopEnabled": true
     },
     "mobileSettings": {
-      "enableS1EncryptedStoragePref2": false
+        "enableS1EncryptedStoragePref2": false
     }
   }
 }

@@ -1,18 +1,24 @@
-# Salesforce DX Project: Next Steps
+# Trigger Bypass Strategy
 
-Now that you’ve created a Salesforce DX project, what’s next? Here are some documentation resources to get you started.
+This package implements a simple bypass strategy for the [sfdc-trigger-framework](https://github.com/Craft-First/sfdc-trigger-framework) based on a custom setting to define whether or not a specific trigger handler should be bypassed.
 
-## How Do You Plan to Deploy Your Changes?
+## Design
 
-Do you want to deploy a set of changes, or create a self-contained application? Choose a [development model](https://developer.salesforce.com/tools/vscode/en/user-guide/development-models).
+There is no one size fits all bypass strategy. Different handlers can be bypassed for different reasons. Each handler has the knowledge of whether it should be by passed or not, hence the reason why each handler should implement the `Disableable` interface.
 
-## Configure Your Salesforce DX Project
+Because we don't want a proliferation of the same bypass logic in each and every trigger handler, they delegate this logic to a strategy.
 
-The `sfdx-project.json` file contains useful configuration information for your project. See [Salesforce DX Project Configuration](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_ws_config.htm) in the _Salesforce DX Developer Guide_ for details about this file.
+This implementation is deliberately left simple where there is only one setting that is intended to be used for all Handlers, it is our opinion that allowing for complex orchestration in Trigger Handlers leads to poor implementations with complex business logic existing in trigger handlers.
 
-## Read All About It
+## Implementation
 
-- [Salesforce Extensions Documentation](https://developer.salesforce.com/tools/vscode/)
-- [Salesforce CLI Setup Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_intro.htm)
-- [Salesforce DX Developer Guide](https://developer.salesforce.com/docs/atlas.en-us.sfdx_dev.meta/sfdx_dev/sfdx_dev_intro.htm)
-- [Salesforce CLI Command Reference](https://developer.salesforce.com/docs/atlas.en-us.sfdx_cli_reference.meta/sfdx_cli_reference/cli_reference.htm)
+Each bypass strategy must implement the `Disableable` interface and return `true`
+if the handler should be bypassed.
+
+Each trigger handler should invoke the bypass strategy in the `isDisabled` method
+
+```java
+    public Boolean isDisabled() {
+        return (new TriggerBypassStrategy()).isDisabled();
+    }
+```
