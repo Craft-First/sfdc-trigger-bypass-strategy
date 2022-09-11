@@ -34,6 +34,10 @@ jobs:
       - name: "Create New Scratch Org"
         run: sfdx force:org:create -f config/project-scratch-def.json -a scratch-org -s -d 1 -v devhub
 
+      # Install Package Dependencies
+      - name: "Install Package Dependencies"
+        run: sfdx sfpowerkit:package:dependencies:install -u scratch-org -v devhub
+
       # Push Source Code
       - name: "Push Source to Scratch Org"
         run: "sfdx force:source:push -u scratch-org"
