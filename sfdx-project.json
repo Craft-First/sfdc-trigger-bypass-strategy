@@ -3,7 +3,7 @@
     {
       "path": "trigger-bypass-strategy",
       "package": "sfdc-trigger-bypass-strategy",
-      "versionNumber": "1.0.2.NEXT",
+      "versionNumber": "1.0.3.NEXT",
       "versionName": "trigger-bypass-strategy-1.0",
       "default": true,
       "dependencies": [
